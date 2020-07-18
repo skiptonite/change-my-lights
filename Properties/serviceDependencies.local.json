@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroup')]/providers/Microsoft.Sql/servers/change-my-light-server/databases/change-my-light-database",
+      "type": "mssql.azure",
+      "connectionId": "LedDatabaseContext",
+      "secretStore": "LocalSecretsFile"
+    }
+  }
+}
