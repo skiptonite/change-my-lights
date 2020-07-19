@@ -9,7 +9,7 @@ import { LightPresetService } from '../services/light-preset.service';
 })
 export class LedStateComponent implements OnInit {
 
-  led: Led;
+  leds: Led[];
 
   constructor(private lightPresetService: LightPresetService) { }
 
@@ -18,7 +18,7 @@ export class LedStateComponent implements OnInit {
   }
 
   getData(): void {
-    this.lightPresetService.get().subscribe(data => console.log(data));
+    this.lightPresetService.getPresets().subscribe(data => console.log(data));
   }
 
 }

@@ -1,6 +1,9 @@
-<h2>ID: {{led.id}}</h2>
-<h2>RGB: {{led.rgb}}</h2>
-<h2>Name: {{led.colorName}}</h2>
+<h2>Light Presets</h2>
+<ul class="presets">
+  <li *ngFor="let preset of presets">
+    <span class="badge">{{led.name}}</span> {{led.rgb}}
+  </li>
+</ul>
 <button>New Preset</button>
 <button>Edit Preset</button>
 <button>Delete Preset</button>
