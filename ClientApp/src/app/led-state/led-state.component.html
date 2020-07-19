@@ -1,7 +1,7 @@
 <h2>Light Presets</h2>
-<ul class="presets">
-  <li *ngFor="let preset of presets">
-    <span class="badge">{{led.name}}</span> {{led.rgb}}
+<ul class="leds">
+  <li *ngFor="let led of leds">
+    <span class="badge">{{led.colorName}}</span> {{led.rgb}}
   </li>
 </ul>
 <button>New Preset</button>

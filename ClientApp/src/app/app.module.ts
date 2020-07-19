@@ -6,14 +6,12 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { LedStateComponent } from './led-state/led-state.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    FetchDataComponent,
     LedStateComponent
   ],
   imports: [
@@ -22,7 +20,6 @@ import { LedStateComponent } from './led-state/led-state.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', redirectTo: '/home', pathMatch: 'full' },
-      { path: 'fetch-data', component: FetchDataComponent },
       { path: 'home', component: LedStateComponent }
     ])
   ],

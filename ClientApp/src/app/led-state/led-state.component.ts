@@ -18,7 +18,7 @@ export class LedStateComponent implements OnInit {
   }
 
   getData(): void {
-    this.lightPresetService.getPresets().subscribe(data => console.log(data));
+    this.lightPresetService.getPresets().subscribe(leds => this.leds = leds);
   }
 
 }
