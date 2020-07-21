@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Led } from '../interfaces/led';
 import { LightPresetService } from '../services/light-preset.service';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-led-state',
@@ -9,9 +10,12 @@ import { LightPresetService } from '../services/light-preset.service';
 })
 export class LedStateComponent implements OnInit {
 
-  leds: Led[];
+  public leds: Led[];
+  selectedPreset: Led;
+  showVar: boolean = false;
 
-  constructor(private lightPresetService: LightPresetService) { }
+  constructor(private lightPresetService: LightPresetService,
+    private messageService: MessageService) { }
 
   ngOnInit() {
     this.getData();
@@ -19,6 +23,15 @@ export class LedStateComponent implements OnInit {
 
   getData(): void {
     this.lightPresetService.getPresets().subscribe(leds => this.leds = leds);
+  }
+
+  onSelect(led: Led): void {
+    this.selectedPreset = led;
+    this.messageService.add(`LedStateComponent: Selected preset id${led.id}`);
+  }
+
+  toggleChild() {
+    this.showVar = !this.showVar;
   }
 
 }

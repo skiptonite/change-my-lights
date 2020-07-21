@@ -7,12 +7,16 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { LedStateComponent } from './led-state/led-state.component';
+import { PresetComponent } from './preset/preset.component';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    LedStateComponent
+    LedStateComponent,
+    PresetComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

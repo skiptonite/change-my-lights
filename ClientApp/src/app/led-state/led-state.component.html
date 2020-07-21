@@ -1,9 +1,20 @@
 <h2>Light Presets</h2>
 <ul class="leds">
-  <li *ngFor="let led of leds">
+  <li *ngFor="let led of leds"
+      [class.selected]="led === selectedPreset"
+      (click)="onSelect(led)">
     <span class="badge">{{led.colorName}}</span> {{led.rgb}}
   </li>
 </ul>
-<button>New Preset</button>
-<button>Edit Preset</button>
-<button>Delete Preset</button>
+
+<app-preset [led]="selectedPreset"></app-preset>
+
+<div>
+  <button type="button" label="Click" (click)="toggleChild()">Create New Preset</button>
+  <div>
+    <app-preset [showAdd]="showVar"></app-preset>
+  </div>
+</div>
+
+
+

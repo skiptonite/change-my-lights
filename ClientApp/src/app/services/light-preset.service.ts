@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Led } from '../interfaces/led';
+import { MessageService } from '../services/message.service';
 
 
 @Injectable({
@@ -11,25 +12,50 @@ import { Led } from '../interfaces/led';
 export class LightPresetService {
 
   constructor(
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private messageService: MessageService) { }
 
   private presetsUrl = 'api/LightPreset';
 
-  getPresets(): Observable<Led[]> {
-    return this.http.get<Led[]>(this.presetsUrl);
-      /*.pipe(
-      catchError(this.handleError(`get`)));*/
-    
+  private log(message: string) {
+    this.messageService.add(`LightPresetService: ${message}`);
   }
 
-  /*private handleError<T>(operation = 'operation', result?: T) {
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+  }
+
+  getPreset(id: number): Observable<Led> {
+    const url = `${this.presetsUrl}/${id}`;
+    return this.http.get<Led>(url);
+  }
+
+  getPresets(): Observable<Led[]> {
+    return this.http.get<Led[]>(this.presetsUrl);
+          
+  }
+
+  updatePreset(led: Led): Observable<any> {
+    return this.http.put(this.presetsUrl + "/" + led.id, led, this.httpOptions).pipe(
+      tap(_ => this.log(`updated preset id=${led.id}`)),
+      catchError(this.handleError<any>('updatePreset')));
+  }
+
+  addPreset(led: Led): Observable<Led> {
+    return this.http.post<Led>(this.presetsUrl, led, this.httpOptions);
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
-      console.error(error);
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
 
+      // TODO: better job of transforming error for user consumption
       this.log(`${operation} failed: ${error.message}`);
 
+      // Let the app keep running by returning an empty result.
       return of(result as T);
-    };*/
-  //}
+    };
+  }
 }
