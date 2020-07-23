@@ -4,6 +4,8 @@
       [class.selected]="led === selectedPreset"
       (click)="onSelect(led)">
     <span class="badge">{{led.colorName}}</span> {{led.rgb}}
+    <button class="delete" title="delete preset"
+            (click)="delete(led)">X</button>
   </li>
 </ul>
 
@@ -11,9 +13,9 @@
 
 <div>
   <button type="button" label="Click" (click)="toggleChild()">Create New Preset</button>
-  <div>
-    <app-preset [showAdd]="showVar"></app-preset>
-  </div>
+  
+    <app-preset [showAdd]="showVar" (change)="updateLedArray($event)"></app-preset>
+  
 </div>
 
 

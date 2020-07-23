@@ -10,7 +10,7 @@ import { MessageService } from '../services/message.service';
 })
 export class LedStateComponent implements OnInit {
 
-  public leds: Led[];
+  leds: Led[];
   selectedPreset: Led;
   showVar: boolean = false;
 
@@ -21,6 +21,13 @@ export class LedStateComponent implements OnInit {
     this.getData();
   }
 
+  updateLedArray(event) {
+    if (event) {
+      this.getData();
+    }
+    
+  }
+
   getData(): void {
     this.lightPresetService.getPresets().subscribe(leds => this.leds = leds);
   }
@@ -28,6 +35,11 @@ export class LedStateComponent implements OnInit {
   onSelect(led: Led): void {
     this.selectedPreset = led;
     this.messageService.add(`LedStateComponent: Selected preset id${led.id}`);
+  }
+
+  delete(led: Led): void {
+    this.leds = this.leds.filter(l => l !== led);
+    this.lightPresetService.deletePreset(led).subscribe();
   }
 
   toggleChild() {

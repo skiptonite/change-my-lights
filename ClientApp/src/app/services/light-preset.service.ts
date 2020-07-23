@@ -32,7 +32,6 @@ export class LightPresetService {
 
   getPresets(): Observable<Led[]> {
     return this.http.get<Led[]>(this.presetsUrl);
-          
   }
 
   updatePreset(led: Led): Observable<any> {
@@ -42,7 +41,19 @@ export class LightPresetService {
   }
 
   addPreset(led: Led): Observable<Led> {
-    return this.http.post<Led>(this.presetsUrl, led, this.httpOptions);
+    return this.http.post<Led>(this.presetsUrl, led, this.httpOptions).pipe(
+      tap((newLed: Led) => this.log(`added preset w/ id=${newLed.id}`)),
+      catchError(this.handleError<Led>('addPreset')));
+  }
+
+  deletePreset(led: Led | number): Observable<Led> {
+    const id = typeof led === 'number' ? led : led.id;
+    const url = `${this.presetsUrl}/${id}`;
+
+    return this.http.delete<Led>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`deleted preset id=${id}`)),
+      catchError(this.handleError<Led>('deletePreset'))
+    );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
