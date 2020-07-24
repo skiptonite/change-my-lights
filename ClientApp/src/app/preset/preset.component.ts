@@ -17,7 +17,6 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 
   @Output()
   change: EventEmitter<Led> = new EventEmitter<Led>();
-
       
   constructor(
     private lightPresetService: LightPresetService,
@@ -30,7 +29,6 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
     colorName: [null, Validators.required],
     rgb: [null, [Validators.required]]
   });
-    
 
   save(): void {
     this.lightPresetService.updatePreset(this.led).subscribe();

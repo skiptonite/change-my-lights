@@ -1,19 +1,21 @@
+<!--Edit Tab-->
 <div *ngIf="led">
-
-  <h2>Edit</h2>
-  <div><span>Name: </span>{{led.colorName}}</div>
-  <div><span>RGB: </span>{{led.rgb}}</div>
-  <div>
+  <form [formGroup]="presetCreator" (ngSubmit)="save();">
     <label>
       Name:
-      <input [(ngModel)]="led.colorName" placeholder="name" />
-      RGB:
-      <input [(ngModel)]="led.rgb" placeholder="rgb" />
+      <input type="text" [(ngModel)]="led.colorName" formControlName="colorName" required>
     </label>
-    <button (click)="save()">Save</button>
-  </div>
+
+    <label>
+      Color:
+      <input type="color" [(ngModel)]="led.rgb" formControlName="rgb">
+    </label>
+
+    <button type="button" class="btn btn-dark btn-sm" [disabled]="!presetCreator.valid">Save</button>
+  </form>
 </div>
 
+<!--Create Tab-->
 <div *ngIf="showAdd">
   <form [formGroup]="presetCreator" (ngSubmit)="add(); presetCreator.reset()">
     <label>
@@ -28,6 +30,6 @@
       
       <button type="submit" [disabled]="!presetCreator.valid">Create</button>
   </form>
-
 </div>
+
 
