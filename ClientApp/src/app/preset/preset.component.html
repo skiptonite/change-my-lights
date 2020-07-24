@@ -15,16 +15,19 @@
 </div>
 
 <div *ngIf="showAdd">
-
-  <h2>New</h2>
-    <div>
+  <form [formGroup]="presetCreator" (ngSubmit)="add(); presetCreator.reset()">
     <label>
       Name:
-      <input #presetName placeholder="name" />
-      Color:
-      <input #presetRgb placeholder="rgb" />
+      <input type="text" formControlName="colorName" required>
     </label>
-    <button (click)="add(presetName.value, presetRgb.value)" >Create</button>
-  </div>
+
+      <label>
+        Color:
+        <input type="color" formControlName="rgb">
+      </label>
+      
+      <button type="submit" [disabled]="!presetCreator.valid">Create</button>
+  </form>
 
 </div>
+

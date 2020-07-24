@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Led } from '../interfaces/led';
 import { LightPresetService } from '../services/light-preset.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 
 @Component({
@@ -19,26 +19,26 @@ import { FormControl, FormGroup } from '@angular/forms';
   change: EventEmitter<Led> = new EventEmitter<Led>();
 
       
-  constructor(private lightPresetService: LightPresetService) { }
+  constructor(
+    private lightPresetService: LightPresetService,
+    private fb: FormBuilder) { }
     
   ngOnInit() {
   }
 
-  /*presetEditor = new FormGroup({
-    colorName: new FormControl(''),
-    rgb: new FormControl('')
-  });*/
+  presetCreator = this.fb.group({
+    colorName: [null, Validators.required],
+    rgb: [null, [Validators.required]]
+  });
     
 
   save(): void {
     this.lightPresetService.updatePreset(this.led).subscribe();
   }
 
-  add(colorName: string, rgb: string): void {
-    colorName = colorName.trim();
-    rgb = rgb.trim();
-    /*if (!name || !rgb) { return };*/
-    this.lightPresetService.addPreset({ rgb, colorName } as Led).subscribe(led => {
+  add() {
+    console.warn(this.presetCreator.value);
+    this.lightPresetService.addPreset(this.presetCreator.value).subscribe(led => {
       this.change.emit(led);
     });
     this.showAdd = false;

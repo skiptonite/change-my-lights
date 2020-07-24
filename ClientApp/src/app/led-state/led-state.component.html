@@ -1,13 +1,41 @@
 <h2>Light Presets</h2>
-<ul class="leds">
+
+
+<!--
+  <div class="card text-white mb-3" style="max-width: 6rem;">
+    <div class="card-header bg-dark">Header</div>
+    <div class="card-body"></div>
+  </div>-->
+
+
+<!--<ul class="leds">
   <li *ngFor="let led of leds"
       [class.selected]="led === selectedPreset"
       (click)="onSelect(led)">
-    <span class="badge">{{led.colorName}}</span> {{led.rgb}}
-    <button class="delete" title="delete preset"
-            (click)="delete(led)">X</button>
+
+
+  
+
   </li>
 </ul>
+-->
+<div class="leds">
+  
+  <div class="card text-white mb-3" style="max-width: 6rem;" *ngFor="let led of leds">
+    <div class="card-header bg-dark">{{led.colorName}}</div>
+    <div class="card-body" style.background-color="{{led.rgb}}"></div>
+  </div>
+</div>
+
+<!--<ul class="leds">
+  <li *ngFor="let led of leds"
+      [class.selected]="led === selectedPreset"
+      (click)="onSelect(led)">
+    <span class="badge"></span> 
+    <button class="delete" title="delete preset"
+            (click)="delete(led)">x</button>
+  </li>
+</ul>-->
 
 <app-preset [led]="selectedPreset"></app-preset>
 
